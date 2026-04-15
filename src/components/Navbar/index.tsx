@@ -1,5 +1,5 @@
 import Avatar from '@mui/material/Avatar';
-import { strings } from "../../utils/strings";
+import { strings, defaultAvatarString } from "../../utils/strings";
 import { language } from "../../utils/settings";
 
 export function Navbar() {
@@ -9,7 +9,7 @@ export function Navbar() {
       <div className="flex h-14 items-center justify-between gap-8 px-4 sm:px-6 bg-gray-400">
         <div className="font-mono font-bold text-[0.8cm]">KARA</div>
         <div className="flex max-md:hidden items-center"> 
-          <Avatar>{strings[language]["default-avatar"]}</Avatar>
+          <Avatar>{strings[language][defaultAvatarString]}</Avatar>
         </div>
       </div>
     </div>
