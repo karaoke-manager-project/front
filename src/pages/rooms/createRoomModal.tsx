@@ -2,7 +2,6 @@ import Modal from '@mui/material/Modal';
 import { PasswordInput } from "../../components/PasswordInput/index";
 import { Input } from "../../components/Input/index";
 import { NumberInput } from "../../components/NumberInput/index";
-import { useState } from "react";
 import { Button } from "../../components/Button/index";
 import { 
   strings,
@@ -14,18 +13,22 @@ import {
   maxQuantityPlaceholderString,
   cancelString,
   createString,
-  requiredFieldString 
+  requiredFieldString,
 } from "../../utils/strings";
 import { language } from "../../utils/settings";
+import { useState } from 'react';
+import { ICreateRoomParams } from '../../mappers/createRoom';
 
 type Props = {
   open: boolean;
-  onClose: () => void
+  onClose: () => void;
+  handleCreateRoom: (data: ICreateRoomParams) => void;
 }
 
 export function CreateRoomModal({
   open,
   onClose,
+  handleCreateRoom,
 }: Props) {
   const [name, setName] = useState<string>("");
   const [nameError, setNameError] = useState<string>("");
@@ -33,7 +36,7 @@ export function CreateRoomModal({
   const [maxQuantity, setMaxQuantity] = useState<number | null>(null);
   const [maxQuantityError, setMaxQuantityError] = useState<string>("");
 
-  const closeModal = () => {
+  const handleClose = () => {
     setName("");
     setPassword("");
     setMaxQuantity(null);
@@ -42,9 +45,32 @@ export function CreateRoomModal({
     onClose();
   }
 
-  const handleCreateRoom = () => {
-    if(name === "") setNameError(strings[language][requiredFieldString]);
-    if(maxQuantity === null) setMaxQuantityError(strings[language][requiredFieldString]);
+  const validateErrors = () => {
+    let hasError = false;
+    const validations = [
+      {
+        "condition": () => name === "", 
+        "error": () => setNameError(strings[language][requiredFieldString])
+      },
+      {
+        "condition": () => maxQuantity === null,
+        "error": () => setMaxQuantityError(strings[language][requiredFieldString])
+      },
+    ];
+    for(const validation of validations) {
+      if (validation.condition()){
+        validation.error()
+        hasError = true;
+      }
+    }
+    return hasError;
+  }
+
+  const handleCreate = () => {
+    const hasError = validateErrors();
+    if(hasError) return;
+    handleCreateRoom({ name, password, maxQuantity });
+    handleClose();
   }
 
   return (
@@ -87,11 +113,11 @@ export function CreateRoomModal({
           <div className="flex justify-between w-full mt-2">
             <Button 
               label={strings[language][cancelString]} 
-              onClick={closeModal}
+              onClick={handleClose}
             />
             <Button 
               label={strings[language][createString]}
-              onClick={handleCreateRoom}
+              onClick={handleCreate}
             />
           </div>
         </div>

@@ -1,9 +1,8 @@
-import { Dispatch, SetStateAction, useState } from "react";
 
 type Props = {
   label: string;
   required?: boolean;
-  onChange: Dispatch<SetStateAction<string>>;
+  onChange: (value: string) => void;
   placeholder: string;
   value: string;
   maxLength: number;
@@ -17,7 +16,6 @@ export function Input({
   placeholder,
   value,
   maxLength = Number.MAX_SAFE_INTEGER,
-  validations,
   error,
 }: Props) {
 

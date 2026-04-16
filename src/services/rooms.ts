@@ -1,19 +1,14 @@
-import { IRoom } from "../interfaces/room";
+import { IRoom, ICreateRoom } from "../interfaces/room";
 
 export async function getRooms(): Promise<IRoom[]> {
-  return [
-    {
-      "name": "Teste",
-      "code": "hjkl",
-      "password": "semsenha",
-      "max_quantity": 50,
-      "quantity": 5,
-    }, 
-    {
-      "name": "Teste2",
-      "code": "hjkla",
-      "max_quantity": 50,
-      "quantity": 5,
-    },
-  ];
+  if(localStorage.getItem("rooms") === null) localStorage.setItem("rooms", "[]");
+  const rooms = JSON.parse(localStorage.getItem("rooms"));
+  return rooms;
 } 
+
+export async function createRoom(data: ICreateRoom): Promise<IRoom> {
+  const newRoom = {...data, "code": "abcd", "quantity": 0};
+  if(localStorage.getItem("rooms") === null) localStorage.setItem("rooms", "[]");
+  localStorage.setItem("rooms", JSON.stringify([...JSON.parse(localStorage.getItem("rooms")), newRoom]))
+  return newRoom;
+}

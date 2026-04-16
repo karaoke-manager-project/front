@@ -1,11 +1,11 @@
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 
 type Props = {
   label: string;
   required?: boolean;
-  onChange: Dispatch<SetStateAction<string>>;
+  onChange: (value: string) => void;
   value: string;
   maxLength: number;
 }

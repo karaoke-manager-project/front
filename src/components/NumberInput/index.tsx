@@ -1,9 +1,8 @@
-import { Dispatch, SetStateAction } from "react";
 
 type Props = {
   label: string;
   required?: boolean;
-  onChange: Dispatch<SetStateAction<number | null>>;
+  onChange: (value: number | null) => void;
   placeholder: string;
   value: string;
   min: number;

@@ -5,6 +5,7 @@
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,
     "skipLibCheck": true,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "module": "ESNext",
@@ -13,7 +14,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "types": ["vitest/globals"],
   },
   "references": [{ "path": "./tsconfig.node.json" }],
-  "exclude": ["vite.config.ts"]
+  "exclude": ["vite.config.ts", "node_modules"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
 }
