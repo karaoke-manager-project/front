@@ -3,8 +3,10 @@ import { getRoom, editRoom } from "../services/room";
 import { IRoom } from "../interfaces/room";
 import { useNavigate, useParams } from "react-router-dom";
 import { createRoomMap, ICreateRoomParams } from "../mappers/createRoom";
-import { strings, requiredFieldString, dataString } from "../utils/strings";
-import { language } from "../utils/settings";
+import { strings, dataString } from "../utils/strings";
+import { language, url } from "../utils/settings";
+import { roomRoute } from "../utils/routes";
+import * as QRCode from 'qrcode';
 
 export function useRoom() {
   const { id } = useParams();
@@ -13,12 +15,8 @@ export function useRoom() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState(null);
   const navigator = useNavigate();
-  const [activeButton, setActiveButton] = useState(strings[language][dataString]);
-  const [name, setName] = useState<string>("");
-  const [nameError, setNameError] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [maxQuantity, setMaxQuantity] = useState<number | null>(null);
-  const [maxQuantityError, setMaxQuantityError] = useState<string>("");
+  const [activeButton, setActiveButton] = useState<string>(strings[language][dataString]);
+  const [qrCodeUrl, setQrCodeUrl] = useState<string>("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -35,37 +33,12 @@ export function useRoom() {
   }, [])
 
   useEffect(() => {
-    if(room){
-      setName(room.name);
-      setPassword(room.password ?? "");
-      setMaxQuantity(room.maxQuantity);
-    }
+    if(!room) return;
+    QRCode.toDataURL(`${url}${roomRoute}/${room.code}`, { width: 150, margin: 1 })
+    .then((url: string) => setQrCodeUrl(url))
   }, [room])
 
-  const handleClose = () => {
-    if(room){
-      setName(room.name);
-      setPassword(room.password ?? "");
-      setMaxQuantity(room.maxQuantity);
-    }
-    setNameError("");
-    setMaxQuantityError("");
-  }
-
-  const validations = [
-    {
-      "condition": () => name === "", 
-      "error": () => setNameError(strings[language][requiredFieldString])
-    },
-    {
-      "condition": () => maxQuantity === null,
-      "error": () => setMaxQuantityError(strings[language][requiredFieldString])
-    },
-  ];
-
   const handleEdit = (newData: ICreateRoomParams) => {
-    setNameError("");
-    setMaxQuantityError("");
     setIsLoading(true);
     editRoom(id ?? "", createRoomMap(newData))
       .then((data) => {
@@ -82,20 +55,9 @@ export function useRoom() {
   return {
     room,
     navigator,
-    name,
-    setName,
-    nameError,
-    setNameError,
-    password,
-    setPassword,
-    maxQuantity,
-    setMaxQuantity,
-    maxQuantityError,
-    setMaxQuantityError,
     activeButton, 
     setActiveButton,
-    handleClose,
     handleEdit,
-    validations,
+    qrCodeUrl,
   }
 }

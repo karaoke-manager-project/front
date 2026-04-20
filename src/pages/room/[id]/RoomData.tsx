@@ -1,53 +1,66 @@
 import { Tooltip } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import { RoomForm } from "../../../components/RoomForm";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "../../../components/Input";
-import { ICreateRoom, IRoom } from "../../../interfaces/room";
-import { strings, roomDataString, roomCodeString, editString } from "../../../utils/strings";
+import { IRoom } from "../../../interfaces/room";
+import { strings, roomDataString, roomCodeString, editString, requiredFieldString } from "../../../utils/strings";
 import { language } from "../../../utils/settings";
+import { ICreateRoomParams } from "../../../mappers/createRoom";
 
 type Props = {
-  name: string;
-  setName: Dispatch<SetStateAction<string>>;
-  nameError: string;
-  password: string;
-  setPassword: Dispatch<SetStateAction<string>>;
-  maxQuantity: number;
-  setMaxQuantity: Dispatch<SetStateAction<number | null>>;
-  maxQuantityError: string;
-  handleClose: () => void;
-  handleEdit: (newData: ICreateRoom) => void;
-  validations: {"condition": () => boolean, "error": () => void}[],
+  handleEdit: (newData: ICreateRoomParams) => void;
   room: IRoom,
 }
 
 export function RoomData({
-  name,
-  setName,
-  nameError,
-  password,
-  setPassword,
-  maxQuantity,
-  setMaxQuantity,
-  maxQuantityError,
-  handleClose,
   handleEdit,
-  validations,
   room,
 }: Props) {
 
+  const [name, setName] = useState<string>("");
+  const [nameError, setNameError] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [maxQuantity, setMaxQuantity] = useState<number | null>(null);
+  const [maxQuantityError, setMaxQuantityError] = useState<string>("");
   const [onEdit, setOnEdit] = useState<boolean>(false);
 
+  useEffect(() => {
+    if(!room) return;
+    setName(room.name);
+    setPassword(room.password ?? "");
+    setMaxQuantity(room.maxQuantity);
+  }, [room])
+
   const stopEdit = () => {
-    handleClose();
+    setNameError("");
+    setMaxQuantityError("");
     setOnEdit(false);
   }
 
   const successEdit = () => {
+    stopEdit();
     handleEdit({ name, password, maxQuantity });
-    setOnEdit(false);
   }
+
+  const handleClose = () => {
+    stopEdit();
+    if(!room) return;
+    setName(room.name);
+    setPassword(room.password ?? "");
+    setMaxQuantity(room.maxQuantity);
+  }
+
+  const validations = [
+    {
+      "condition": () => name === "", 
+      "error": () => setNameError(strings[language][requiredFieldString])
+    },
+    {
+      "condition": () => maxQuantity === null,
+      "error": () => setMaxQuantityError(strings[language][requiredFieldString])
+    },
+  ];
 
   return (
     <>
@@ -71,7 +84,7 @@ export function RoomData({
         setMaxQuantity={setMaxQuantity}
         maxQuantityDisabled={!onEdit}
         maxQuantityError={maxQuantityError}
-        handleClose={stopEdit}
+        handleClose={handleClose}
         handleSuccess={successEdit}
         validations={validations}
         successButtonText={strings[language][editString]}
