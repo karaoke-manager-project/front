@@ -1,1 +1,2 @@
-export const RoomsRoute = "/rooms"
+export const roomsRoute = "/rooms"
+export const roomRoute = "/room"

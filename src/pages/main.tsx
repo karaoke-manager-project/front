@@ -1,13 +1,15 @@
 import { Route, Routes } from "react-router-dom"
-import { RoomsRoute } from "../utils/routes"
-import { RoomsPage } from "./rooms/page"
+import { roomRoute, roomsRoute } from "../utils/routes"
+import { RoomsPage } from "./room/page"
+import { RoomPage } from "./room/[id]/page"
 
 export const RoutesPages = () => {
   return (
     <>
       <Routes>
         <Route path={'/'} element={<> </>} />
-        <Route path={RoomsRoute} element={<RoomsPage/>} />
+        <Route path={roomsRoute} element={<RoomsPage/>} />
+        <Route path={roomRoute + "/:id"} element={<RoomPage/>} />
       </Routes>
     </>
   )

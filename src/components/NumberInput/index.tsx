@@ -1,3 +1,4 @@
+import { Input } from "../Input/index";
 
 type Props = {
   label: string;
@@ -8,6 +9,7 @@ type Props = {
   min: number;
   max: number;
   error: string;
+  disabled?: boolean;
 };
 
 export function NumberInput({
@@ -19,6 +21,7 @@ export function NumberInput({
   min = 0,
   max = Number.MAX_SAFE_INTEGER,
   error,
+  disabled = false,
 }: Props) {
 
   const handleChange = (newValue: string) => {
@@ -34,15 +37,15 @@ export function NumberInput({
 
   return (
     <>
-      <div className={`${error === "" ? "" : "text-red-500"}`}>{label} {required ? " *" : " (Opcional)"}</div>
-      <input 
-        className={`border-2 border-gray-300 rounded-lg p-2 w-full ${error === "" ? "" : "border-red-500"}`}
-        value={value}
-        onChange={(e) => handleChange(e.target.value)}
+      <Input
+        label={label}
+        required
+        onChange={(value) => handleChange(value)}
         placeholder={placeholder}
-      >
-      </input>
-      <div className="min-h-[25px] max-h-[25px] text-red-500">{error}</div>
+        value={value}
+        error={error}
+        disabled={disabled}
+      />
     </>
   );
 }

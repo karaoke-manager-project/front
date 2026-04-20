@@ -6,16 +6,22 @@ import { strings, goToRoomString } from "../../utils/strings";
 import { language } from "../../utils/settings";
 import { IRoom } from '../../interfaces/room';
 import { truncateString } from '../../utils/truncateString'
+import { NavigateFunction } from 'react-router-dom';
+import { roomRoute } from '../../utils/routes';
 
 type Props = {
   data: IRoom;
+  navigator: NavigateFunction;
 };
 
-export function RoomCard({ data }: Props) {
+export function RoomCard({ data, navigator }: Props) {
   return (
     <div>
       <Tooltip title={`${strings[language][goToRoomString]} ${data.name}`}>
-        <button className="flex flex-col w-[15rem] h-[15rem] bg-gray-400 rounded-lg justify-between">
+        <button 
+          className="flex flex-col w-[15rem] h-[15rem] bg-gray-400 rounded-lg justify-between"
+          onClick={() => navigator(`${roomRoute}/${data.code}`)}
+        >
         <div className="flex items-center justify-center p-2">
           {truncateString(data.name, 20)}
         </div>

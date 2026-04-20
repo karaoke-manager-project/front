@@ -12,6 +12,12 @@ export const maxQuantityPlaceholderString = "max-quantity-placeholder";
 export const cancelString = "cancel";
 export const createString = "create";
 export const requiredFieldString = "required-field";
+export const queueString = "queue";
+export const dataString = "data";
+export const participantsString = "participants";
+export const roomDataString = "room-data";
+export const editString = "edit";
+export const roomCodeString = "room-code";
 
 export const strings: {[locale: string]: {[key: string]: string}} = {
   "pt-br": {
@@ -28,5 +34,11 @@ export const strings: {[locale: string]: {[key: string]: string}} = {
     [cancelString]: "Cancelar",
     [createString]: "Criar",
     [requiredFieldString]: "Esse campo é obrigatório",
+    [queueString]: "Fila",
+    [dataString]: "Dados",
+    [participantsString]: "Participantes",
+    [roomDataString]: "Dados da Sala",
+    [editString]: "Editar",
+    [roomCodeString]: "Código da Sala",
   },
 };

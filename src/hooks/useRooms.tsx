@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { createRoom, getRooms } from "../services/rooms"
 import { ICreateRoom, IRoom } from "../interfaces/room";
 import { createRoomMap, ICreateRoomParams } from "../mappers/createRoom";
+import { useNavigate } from "react-router-dom";
 
 export function useRooms() {
   const [rooms, setRooms] = useState<IRoom[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState(null);
   const [open, setOpen] = useState<boolean>(false);
+  const navigator = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
@@ -43,5 +45,6 @@ export function useRooms() {
     handleOpen,
     handleClose,
     handleCreateRoom,
+    navigator,
   }
 }
