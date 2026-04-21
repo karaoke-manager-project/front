@@ -20,8 +20,16 @@ cd front
 npm install
 ```
 
+- Crie um .env com as mesmas variáveis do .env.example:
+
+```.env
+VITE_FRONT_URL=
+VITE_PORT=
+```
+
 - Rode o projeto:
 
 ```bash
 npm run dev
 ```
+
