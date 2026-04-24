@@ -15,3 +15,16 @@ export async function editRoom(id: string, data: ICreateRoom): Promise<IRoom> {
   localStorage.setItem("rooms", JSON.stringify(newRooms));
   return editedRoom;
 } 
+
+export async function getRoomAndSongs(id: string): Promise<{"room": IRoom, "songs": ISong[]}> {
+  if(localStorage.getItem("rooms") === null) throw new Error();
+  const room = JSON.parse(localStorage.getItem("rooms")).find(r => r.code === id);
+  const songs = [
+    {"name": "teste", "artist": "A", "link": "b"}, 
+    {"name": "b"},
+  ]
+  return {
+    room,
+    songs,
+  };
+}

@@ -13,7 +13,7 @@ export function JoinPage() {
     <div className="flex flex-col p-14 min-h-screen"> 
       <TobBar/>
       <div className="flex flex-col items-center h-screen justify-center">
-        <div className="flex flex-col w-100">
+        <div className="flex flex-col w-60">
           <Input
             label={strings[language][writeRoomCodeString]}
             required

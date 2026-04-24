@@ -3,7 +3,7 @@ import { PasswordInput } from "../../../components/PasswordInput/index";
 import { Input } from "../../../components/Input/index";
 import { Button } from "../../../components/Button/index";
 import { useJoinId } from "../../../hooks/useJoinId";
-import { strings, enterString, writeRoomCodeString, roomNotFoundString, writePasswordString, writeNameString } from "../../../utils/strings";
+import { strings, enterString, roomNotFoundString, writePasswordString, writeNameString } from "../../../utils/strings";
 import { language } from "../../../utils/settings";
 
 export function JoinIdPage() {
@@ -37,7 +37,7 @@ export function JoinIdPage() {
       <TobBar/>
       {!validateAccess ? 
         <div className="flex flex-col items-center h-screen justify-center">
-          <div className="flex flex-col w-100">
+          <div className="flex flex-col w-60">
             <PasswordInput
               label={strings[language][writePasswordString]}
               required
@@ -55,7 +55,7 @@ export function JoinIdPage() {
         </div>
         :
         <div className="flex flex-col items-center h-screen justify-center">
-          <div className="flex flex-col w-100">
+          <div className="flex flex-col w-60">
             <Input
               label={strings[language][writeNameString]}
               required
