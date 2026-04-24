@@ -18,6 +18,9 @@ export const participantsString = "participants";
 export const roomDataString = "room-data";
 export const editString = "edit";
 export const roomCodeString = "room-code";
+export const enterString = "enter";
+export const writeRoomCodeString = "write-room-code";
+export const invalidRoomCodeString = "invalid-room-code";
 
 export const strings: {[locale: string]: {[key: string]: string}} = {
   "pt-br": {
@@ -40,5 +43,8 @@ export const strings: {[locale: string]: {[key: string]: string}} = {
     [roomDataString]: "Dados da Sala",
     [editString]: "Editar",
     [roomCodeString]: "Código da Sala",
+    [enterString]: "Entrar",
+    [writeRoomCodeString]: "Digite o código da Sala",
+    [invalidRoomCodeString]: "Digite um código de sala válido",
   },
 };
