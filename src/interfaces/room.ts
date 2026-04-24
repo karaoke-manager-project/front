@@ -1,3 +1,4 @@
+import { IUser } from "./user";
 
 export interface IRoom {
   name: string;
@@ -5,6 +6,7 @@ export interface IRoom {
   password?: string;
   maxQuantity: number;
   quantity: number;
+  users: IUser[];
 };
 
 export interface ICreateRoom {
