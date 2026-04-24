@@ -1,6 +1,6 @@
 import { ISong } from "../../interfaces/song";
 import { SongItem } from "../SongItem/index";
-import { strings, positionString, songString, singerString } from "../../utils/strings";
+import { strings, positionString, songString, singerString, noMusicString } from "../../utils/strings";
 import { language } from "../../utils/settings";
 
 type Props = {
@@ -8,6 +8,14 @@ type Props = {
 }
 
 export function SongQueue({ songs }: Props) {
+
+  if(songs.length === 0){
+    return (
+      <div className="flex items-center justify-center h-full">
+        {strings[language][noMusicString]}
+      </div>
+    );
+  }
 
   return (
     <div>
