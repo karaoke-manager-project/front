@@ -18,7 +18,7 @@ export function Navbar({
       <div className="flex h-14 items-center justify-between gap-8 px-4 sm:px-6 bg-gray-400">
         <div className="font-mono font-bold text-[0.8cm]">KARA</div>
         <button className={`flex max-md:hidden items-center ${className}`} onClick={onClick}> 
-          <Tooltip title={sttings[language][profileString]}>
+          <Tooltip title={strings[language][profileString]}>
             <Avatar>{strings[language][defaultAvatarString]}</Avatar>
           </Tooltip>
         </button>

@@ -4,6 +4,7 @@ import { ButtonGroup } from "../../../../components/ButtonGroup/index";
 import { strings, queueString, participantsString, dataString, roomCodeString, roomNotFoundString } from "../../../../utils/strings";
 import { language } from "../../../../utils/settings";
 import { RoomData } from "../RoomData";
+import { SongQueue } from "../../../../components/SongQueue/index";
 
 export function HostRoomPage() { 
 
@@ -13,7 +14,8 @@ export function HostRoomPage() {
     setActiveButton,
     handleEdit,
     qrCodeUrl,
-  } = useHostRoom();
+    songs,
+    } = useHostRoom();
 
   if(!room) {
     return (
@@ -49,7 +51,11 @@ export function HostRoomPage() {
         onChange={(button) => setActiveButton(button)}
       />
       <div className="bg-gray-50 shadow-md mx-20 mb-5 px-20 overflow-y-auto h-180">
-        {activeButton === strings[language][queueString] && <div></div>}
+        {activeButton === strings[language][queueString] && 
+          <div className="py-10">
+            <SongQueue songs={songs}/>
+          </div>
+        }
         {activeButton === strings[language][participantsString] && <div></div>}
         {activeButton === strings[language][dataString] && 
           <RoomData

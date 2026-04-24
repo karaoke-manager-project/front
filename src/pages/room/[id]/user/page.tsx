@@ -1,5 +1,5 @@
 import { Navbar } from "../../../../components/Navbar";
-import { strings, roomNotFoundString, addSongString, noMusicString } from "../../../../utils/strings";
+import { strings, roomNotFoundString, addSongString } from "../../../../utils/strings";
 import { language } from "../../../../utils/settings";
 import { useUserRoom } from "../../../../hooks/useUserRoom";
 import { SongQueue } from "../../../../components/SongQueue/index";
@@ -31,13 +31,7 @@ export function UserRoomPage() {
         </div>
       </div> 
       <div className="bg-gray-50 shadow-md mb-5 overflow-y-auto flex-1 mx-4">
-        {songs.length === 0 ? 
-          <div className="flex items-center justify-center h-full">
-            {strings[language][noMusicString]}
-          </div>
-          : 
-          <SongQueue songs={songs}/>
-        }
+        <SongQueue songs={songs}/>
       </div>
       <div className="flex justify-center pb-15 shrink-0">
         <button className="bg-gray-200 p-4 rounded-md shadow-md">
