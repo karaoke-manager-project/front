@@ -1,7 +1,7 @@
 import { Navbar } from "../../../components/Navbar";
 import { useRoom } from "../../../hooks/useRoom";
 import { ButtonGroup } from "../../../components/ButtonGroup/index";
-import { strings, queueString, participantsString, dataString, roomCodeString } from "../../../utils/strings";
+import { strings, queueString, participantsString, dataString, roomCodeString, roomNotFoundString } from "../../../utils/strings";
 import { language } from "../../../utils/settings";
 import { RoomData } from "./RoomData";
 
@@ -15,8 +15,18 @@ export function RoomPage() {
     qrCodeUrl,
   } = useRoom();
 
+  if(!room) {
+    return (
+      <div className="flex flex-col p-14 min-h-screen"> 
+        <Navbar/>
+        <div className="flex flex-col items-center h-screen justify-center">
+          {strings[language][roomNotFoundString]}
+        </div>
+      </div>
+    );
+  }
+
   return (
-    room ? 
     <div className="flex flex-col p-14 min-h-screen"> 
       <Navbar/>
       <div className="flex items-center justify-between text-[1cm] mx-20 h-20">
@@ -48,10 +58,6 @@ export function RoomPage() {
           />
         }
       </div>
-    </div>
-    :
-    <div className="flex flex-col p-14 min-h-screen"> 
-      <Navbar/>Not Found
     </div>
   );
 }
