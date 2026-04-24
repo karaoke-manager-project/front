@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getRoom } from "../services/room";
 import { joinRoomAndCreateUser } from "../services/join";
@@ -10,6 +10,7 @@ export function useJoinId() {
   const { id } = useParams();
 
   const [room, setRoom] = useState<IRoom>(null);
+  const [searchParams, _] = useSearchParams();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -22,7 +23,7 @@ export function useJoinId() {
     getRoom(id ?? "")
       .then((data) => {
         setRoom(data);
-        if(data?.password === "") setValidateAccess(true);
+        if(data?.password === "") (true);
       })
       .catch((error) => {
         setError(error); 
