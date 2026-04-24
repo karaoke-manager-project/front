@@ -23,7 +23,7 @@ export function useJoinId() {
     getRoom(id ?? "")
       .then((data) => {
         setRoom(data);
-        if(data?.password === "") (true);
+        if(data?.password === "") setValidateAccess(true);
       })
       .catch((error) => {
         setError(error); 
