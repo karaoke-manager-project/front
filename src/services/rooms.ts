@@ -1,22 +1,24 @@
 import { IRoom, ICreateRoom } from "../interfaces/room";
+import api from "../utils/api";
+import Cookies from "js-cookie";
+import { roomEndpoint } from "../utils/endpoints";
+import { apiRoomToIRoom } from "../mappers/room";
 
 export async function getRooms(): Promise<IRoom[]> {
-  if(localStorage.getItem("rooms") === null) localStorage.setItem("rooms", "[]");
-  const rooms = JSON.parse(localStorage.getItem("rooms"));
-  const users = JSON.parse(localStorage.getItem("users"));
-  const usersByRoom = new Map(users.map(user => [user.roomCode, []]));
-  for(const user of users) {
-    const list = usersByRoom.get(user.roomCode);
-    usersByRoom.set(user.roomCode, [...list, user]);
-  }
-  return rooms.map((room) => ({
-    ...room, quantity: usersByRoom.get(room.code).length, users: usersByRoom.get(room.code)
-  }));
+  const res = await api.get(roomEndpoint);
+  const rooms = Object.values(res.data).map((apiRoom) => apiRoomToIRoom(apiRoom));
+  return rooms;
 } 
 
 export async function createRoom(data: ICreateRoom): Promise<IRoom> {
-  const newRoom = {...data, "code": data.name.slice(0, 4), "quantity": 0, users: []};
-  if(localStorage.getItem("rooms") === null) localStorage.setItem("rooms", "[]");
-  localStorage.setItem("rooms", JSON.stringify([...JSON.parse(localStorage.getItem("rooms")), newRoom]))
+  const id = Cookies.get("id");
+  const res = await api.post(roomEndpoint, { "manager_id": id, "name": data.name, "password": data.password});
+  const rooms = localStorage.getItem("rooms");
+  const newRoom = apiRoomToIRoom(res.data);
+  if(!rooms) {
+    localStorage.setItem("rooms", JSON.stringify([newRoom]));
+    return newRoom;
+  }
+  localStorage.setItem("rooms", JSON.stringify([...JSON.parse(rooms), newRoom]));
   return newRoom;
 }

@@ -1,4 +1,4 @@
-import { TobBar } from "../../components/TopBar/index";
+import { TopBar } from "../../components/TopBar/index";
 import { Input } from "../../components/Input/index";
 import { Button } from "../../components/Button/index";
 import { useJoin } from "../../hooks/useJoin";
@@ -11,7 +11,7 @@ export function JoinPage() {
 
   return (
     <div className="flex flex-col p-14 min-h-screen"> 
-      <TobBar/>
+      <TopBar/>
       <div className="flex flex-col items-center h-screen justify-center">
         <div className="flex flex-col w-60">
           <Input

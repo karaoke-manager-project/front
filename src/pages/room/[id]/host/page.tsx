@@ -5,6 +5,7 @@ import { strings, queueString, participantsString, dataString, roomCodeString, r
 import { language } from "../../../../utils/settings";
 import { RoomData } from "../RoomData";
 import { SongQueue } from "../../../../components/SongQueue/index";
+import { Loading } from "../../../../components/Loading/index";
 
 export function HostRoomPage() { 
 
@@ -15,7 +16,10 @@ export function HostRoomPage() {
     handleEdit,
     qrCodeUrl,
     songs,
-    } = useHostRoom();
+    isLoading,
+  } = useHostRoom();
+
+  if(isLoading) return <Loading/>
 
   if(!room) {
     return (

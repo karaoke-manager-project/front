@@ -3,13 +3,13 @@ import { strings, roomNotFoundString, addSongString } from "../../../../utils/st
 import { language } from "../../../../utils/settings";
 import { useUserRoom } from "../../../../hooks/useUserRoom";
 import { SongQueue } from "../../../../components/SongQueue/index";
-import CircularProgress from '@mui/material/CircularProgress';
+import { Loading } from "../../../../components/Loading/index";
 
 export function UserRoomPage() { 
 
   const { room, songs, goToProfilePage, isLoading } = useUserRoom();
 
-  if(isLoading) return <CircularProgress/>
+  if(isLoading) return <Loading/>
 
   if(!room) {
     return (
