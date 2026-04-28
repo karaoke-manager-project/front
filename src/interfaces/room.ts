@@ -20,5 +20,5 @@ export interface ApiRoom {
   code: string,
   name: string,
   password?: string,
-  users: strings[],
+  users: IUser[],
 }

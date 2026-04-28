@@ -1,13 +1,13 @@
 import Avatar from '@mui/material/Avatar';
-import { strings, defaultAvatarString, profileString } from "../../utils/strings";
+import { strings, defaultAvatarString, profileString, logoutString } from "../../utils/strings";
 import { language } from "../../utils/settings";
 import { Tooltip } from "@mui/material";
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useLogout } from "../../hooks/useLogout";
 
 type Props = {
-  className: string;
-  onClick: () => void;
+  className?: string;
+  onClick?: () => void;
 }
 
 export function Navbar({ 
@@ -28,7 +28,7 @@ export function Navbar({
             </Tooltip>
           </button>
           <button onClick={handleLogout}>
-            <Tooltip title="Fazer logout">
+            <Tooltip title={strings[language][logoutString]}>
               <LogoutIcon/>
             </Tooltip>
           </button>

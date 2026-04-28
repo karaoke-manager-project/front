@@ -32,6 +32,7 @@ export const songString = "music";
 export const singerString = "singer";
 export const profileString = "profile";
 export const invalidEmailString = "invalid-email";
+export const logoutString = "logout";
 
 export const strings: {[locale: string]: {[key: string]: string}} = {
   "pt-br": {
@@ -68,5 +69,6 @@ export const strings: {[locale: string]: {[key: string]: string}} = {
     [singerString]: "Cantor",
     [profileString]: "Perfil",
     [invalidEmailString]: "Digite um email",
+    [logoutString]: "Fazer Logout",
   },
 };

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { getRoomAndSongs } from "../services/room";
 import { IRoom } from "../interfaces/room";
 import { useNavigate, useParams } from "react-router-dom";
-import { createRoomMap, ICreateRoomParams } from "../mappers/createRoom";
 import { ISong } from "../interfaces/song";
 
 export function useUserRoom() {

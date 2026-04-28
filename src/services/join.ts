@@ -13,6 +13,5 @@ export async function joinRoomAndCreateUser(code: string, password: string, name
   return {
     id: res.data,
     name,
-    roomCode: code,
   }
 }

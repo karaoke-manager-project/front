@@ -1,4 +1,4 @@
-import { ApiRoom } from "../interfaces/room";
+import { ApiRoom, IRoom } from "../interfaces/room";
 
 export function apiRoomToIRoom(apiRoom: ApiRoom): IRoom {
   return {

@@ -5,11 +5,12 @@ import { joinRoomAndCreateUser } from "../services/join";
 import { language } from "../utils/settings";
 import { strings, invalidPasswordString } from "../utils/strings";
 import { roomRoute } from "../utils/routes";
+import { IRoom } from "../interfaces/room";
 
 export function useJoinId() {
   const { id } = useParams();
 
-  const [room, setRoom] = useState<IRoom>(null);
+  const [room, setRoom] = useState<IRoom | null>(null);
   const [searchParams, _] = useSearchParams();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
@@ -34,7 +35,7 @@ export function useJoinId() {
   }, [])
 
   const verifyPassword = () => {
-    if(password !== room.password){
+    if(room && password !== room.password){
       setError(strings[language][invalidPasswordString]);
       return;
     } 
@@ -49,7 +50,7 @@ export function useJoinId() {
 
   const handleEnter = () => {
     setIsLoading(true);
-    joinRoomAndCreateUser(id, password, name)
+    joinRoomAndCreateUser(id || "", password, name)
       .then(() => {
         navigator(`${roomRoute}/${id}`);
       })
