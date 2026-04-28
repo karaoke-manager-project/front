@@ -9,6 +9,7 @@ type Props = {
   value: string;
   maxLength: number;
   disabled?: boolean;
+  error?: string;
 }
 
 export function PasswordInput({ 
@@ -18,6 +19,7 @@ export function PasswordInput({
   value,
   maxLength = Number.MAX_SAFE_INTEGER,
   disabled = false,
+  error = "",
 }: Props) {
   const [visibility, setVisibility] = useState<boolean>(false);
   const toggleVisibility = () => setVisibility((prev) => !prev);
@@ -32,10 +34,10 @@ export function PasswordInput({
 
   return (
     <>
-      <div>{label}{required ? "*" : " (Opcional)"}</div>
+      <div className={`${error === "" ? "" : "text-red-500"}`}>{label} {required ? " *" : " (Opcional)"}</div>
       <div className="relative flex items-center w-full">
         <input 
-          className={`border-2 border-gray-300 rounded-lg p-2 w-full ${disabled ? "bg-gray-300" : ""}`}
+          className={`border-2 border-gray-300 rounded-lg p-2 w-full ${error === "" ? "" : "border-red-500"} ${disabled ? "bg-gray-300" : ""}`}
           type={visibility ? "text" : "password"}
           value={value}
           required
@@ -47,7 +49,7 @@ export function PasswordInput({
           { visibility ? <VisibilityIcon/> : <VisibilityOffOutlinedIcon/>}
         </button>
       </div>
-      <div className="min-h-[25px] max-h-[25px] text-red-500">{}</div>
+      <div className="min-h-[25px] max-h-[25px] text-red-500">{error}</div>
     </>
   );
 }

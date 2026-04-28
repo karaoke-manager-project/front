@@ -18,6 +18,19 @@ export const participantsString = "participants";
 export const roomDataString = "room-data";
 export const editString = "edit";
 export const roomCodeString = "room-code";
+export const enterString = "enter";
+export const writeRoomCodeString = "write-room-code";
+export const invalidRoomCodeString = "invalid-room-code";
+export const roomNotFoundString = "room-not-found";
+export const writePasswordString = "write-password";
+export const writeNameString = "write-name";
+export const invalidPasswordString = "invalid-password";
+export const addSongString = "add-song";
+export const noMusicString = "no-music";
+export const positionString = "position";
+export const songString = "music";
+export const singerString = "singer";
+export const profileString = "profile";
 
 export const strings: {[locale: string]: {[key: string]: string}} = {
   "pt-br": {
@@ -40,5 +53,18 @@ export const strings: {[locale: string]: {[key: string]: string}} = {
     [roomDataString]: "Dados da Sala",
     [editString]: "Editar",
     [roomCodeString]: "Código da Sala",
+    [enterString]: "Entrar",
+    [writeRoomCodeString]: "Digite o código da Sala",
+    [invalidRoomCodeString]: "Digite um código de sala válido",
+    [roomNotFoundString]: "Sala não encontrada :(",
+    [writePasswordString]: "Digite a senha:",
+    [writeNameString]: "Digite seu nome:",
+    [invalidPasswordString]: "Senha inválida!",
+    [addSongString]: "Adicionar música",
+    [noMusicString]: "Nenhuma música na fila ainda",
+    [positionString]: "Posição",
+    [songString]: "Música",
+    [singerString]: "Cantor",
+    [profileString]: "Perfil",
   },
 };
