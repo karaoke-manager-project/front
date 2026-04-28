@@ -63,5 +63,6 @@ export function useHostRoom() {
     handleEdit,
     qrCodeUrl,
     songs,
+    isLoading,
   }
 }

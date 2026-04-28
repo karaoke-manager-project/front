@@ -14,3 +14,11 @@ export interface ICreateRoom {
   password?: string;
   maxQuantity: number;
 };
+
+export interface ApiRoom {
+  MAX_ROOM_SIZE_FREE_USER: number;
+  code: string,
+  name: string,
+  password?: string,
+  users: strings[],
+}
