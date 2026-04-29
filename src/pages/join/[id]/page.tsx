@@ -5,6 +5,8 @@ import { Button } from "../../../components/Button/index";
 import { useJoinId } from "../../../hooks/useJoinId";
 import { strings, enterString, roomNotFoundString, writePasswordString, writeNameString } from "../../../utils/strings";
 import { language } from "../../../utils/settings";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Tooltip } from "@mui/material";
 
 export function JoinIdPage() {
 
@@ -19,6 +21,7 @@ export function JoinIdPage() {
     handlePassword,
     handleEnter, 
     error,
+    returnPage,
   } = useJoinId();
 
   if(!roomInfo) {
@@ -54,20 +57,29 @@ export function JoinIdPage() {
           </div>
         </div>
         :
-        <div className="flex flex-col items-center h-screen justify-center">
-          <div className="flex flex-col w-60">
-            <Input
-              label={strings[language][writeNameString]}
-              required
-              onChange={(value) => setName(value)}
-              value={name}
-              maxLength={10}
-            />
-            <Button
-              label={strings[language][enterString]}
-              onClick={() => handleEnter()}
-              disabled={isLoading}
-            />
+        <div className="flex flex-col h-screen">
+          <div className="flex justify-start">
+            <button onClick={returnPage} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+              <Tooltip title="Voltar">
+                <ArrowBackIcon/>
+              </Tooltip>
+            </button>
+          </div>
+          <div className="flex flex-1 flex-col items-center justify-center">
+            <div className="flex flex-col w-60">
+              <Input
+                label={strings[language][writeNameString]}
+                required
+                onChange={(value) => setName(value)}
+                value={name}
+                maxLength={10}
+              />
+              <Button
+                label={strings[language][enterString]}
+                onClick={() => handleEnter()}
+                disabled={isLoading}
+              />
+            </div>
           </div>
         </div>
       }

@@ -1,10 +1,10 @@
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getRoomInfo, joinRoom } from "../services/join";
-import { language } from "../utils/settings";
-import { strings, invalidPasswordString } from "../utils/strings";
 import { roomRoute } from "../utils/routes";
 import { ApiRoomInfo } from "../interfaces/room";
+import { strings, invalidPasswordString, requiredFieldString } from "../utils/strings";
+import { language } from "../utils/settings";
 
 export function useJoinId() {
   const { id } = useParams();
@@ -33,10 +33,22 @@ export function useJoinId() {
       });
   }, [])
 
+  const validatePassword = () => {
+    if(password === "") {
+      setError(strings[language][requiredFieldString]);
+      return;
+    }
+    setValidateAccess(true);
+  }
+
   const handlePassword = () => {
     setIsLoading(true);
-    setValidateAccess(true);
+    validatePassword();
     setIsLoading(false);
+  }
+
+  const returnPage = () => {
+    setValidateAccess(false);
   }
 
   const handleEnter = () => {
@@ -46,7 +58,9 @@ export function useJoinId() {
         navigator(`${roomRoute}/${id}`);
       })
       .catch((error) => {
-        setError(error);
+        const errorMessage = error.response.data.message;
+        if(errorMessage === invalidPasswordString) returnPage();
+        setError(strings[language][errorMessage]);
       })
       .finally(() => {
         setIsLoading(false);
@@ -64,5 +78,6 @@ export function useJoinId() {
     handlePassword,
     handleEnter,
     error,
+    returnPage,
   }
 }
