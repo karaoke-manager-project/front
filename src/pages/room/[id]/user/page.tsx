@@ -7,7 +7,7 @@ import { Loading } from "../../../../components/Loading/index";
 
 export function UserRoomPage() { 
 
-  const { room, songs, goToProfilePage, isLoading } = useUserRoom();
+  const { room, goToProfilePage, isLoading } = useUserRoom();
 
   if(isLoading) return <Loading/>
 
@@ -31,7 +31,7 @@ export function UserRoomPage() {
         </div>
       </div> 
       <div className="bg-gray-50 shadow-md mb-5 overflow-y-auto flex-1 mx-4">
-        <SongQueue songs={songs}/>
+        <SongQueue songs={room.songs}/>
       </div>
       <div className="flex justify-center pb-15 shrink-0">
         <button className="bg-gray-200 p-4 rounded-md shadow-md">

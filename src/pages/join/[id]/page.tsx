@@ -9,7 +9,7 @@ import { language } from "../../../utils/settings";
 export function JoinIdPage() {
 
   const { 
-    room, 
+    roomInfo, 
     password, 
     setPassword, 
     validateAccess, 
@@ -21,7 +21,7 @@ export function JoinIdPage() {
     error,
   } = useJoinId();
 
-  if(!room) {
+  if(!roomInfo) {
     return (
       <div className="flex flex-col p-14 min-h-screen"> 
         <TopBar/>

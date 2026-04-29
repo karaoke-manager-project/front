@@ -1,16 +1,15 @@
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getRoom } from "../services/room";
-import { joinRoomAndCreateUser } from "../services/join";
+import { getRoomInfo, joinRoom } from "../services/join";
 import { language } from "../utils/settings";
 import { strings, invalidPasswordString } from "../utils/strings";
 import { roomRoute } from "../utils/routes";
-import { IRoom } from "../interfaces/room";
+import { ApiRoomInfo } from "../interfaces/room";
 
 export function useJoinId() {
   const { id } = useParams();
 
-  const [room, setRoom] = useState<IRoom | null>(null);
+  const [roomInfo, setRoomInfo] = useState<ApiRoomInfo>();
   const [searchParams, _] = useSearchParams();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
@@ -21,10 +20,10 @@ export function useJoinId() {
 
   useEffect(() => {
     setIsLoading(true);
-    getRoom(id ?? "")
+    getRoomInfo(id ?? "")
       .then((data) => {
-        setRoom(data);
-        if(data?.password === "") setValidateAccess(true);
+        setRoomInfo(data);
+        setValidateAccess(!data.hasPassword);
       })
       .catch((error) => {
         setError(error); 
@@ -34,23 +33,15 @@ export function useJoinId() {
       });
   }, [])
 
-  const verifyPassword = () => {
-    if(room && password !== room.password){
-      setError(strings[language][invalidPasswordString]);
-      return;
-    } 
-    setValidateAccess(true);
-  }
-
   const handlePassword = () => {
     setIsLoading(true);
-    verifyPassword();
+    setValidateAccess(true);
     setIsLoading(false);
   }
 
   const handleEnter = () => {
     setIsLoading(true);
-    joinRoomAndCreateUser(id || "", password, name)
+    joinRoom(id || "", password, name)
       .then(() => {
         navigator(`${roomRoute}/${id}`);
       })
@@ -63,7 +54,7 @@ export function useJoinId() {
   }
 
   return {
-    room,
+    roomInfo,
     password,
     setPassword,
     validateAccess,

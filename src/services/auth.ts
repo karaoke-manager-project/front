@@ -14,5 +14,6 @@ export async function login(email: string): Promise<boolean> {
 
 export async function logout(): Promise<boolean> {
   Cookies.remove("host-id");
+  Cookies.remove("user-id");
   return true;
 }
