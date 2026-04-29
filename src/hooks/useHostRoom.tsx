@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { getRoomAndSongs, editRoom } from "../services/room";
 import { IRoom } from "../interfaces/room";
-import { ISong } from "../interfaces/song";
 import { useNavigate, useParams } from "react-router-dom";
-import { createRoomMap, ICreateRoomParams } from "../mappers/createRoom";
+import { ICreateRoomParams } from "../mappers/room";
 import { strings, queueString } from "../utils/strings";
 import { language, url } from "../utils/settings";
 import { joinRoute } from "../utils/routes";
@@ -18,14 +17,12 @@ export function useHostRoom() {
   const navigator = useNavigate();
   const [activeButton, setActiveButton] = useState<string>(strings[language][queueString]);
   const [qrCodeUrl, setQrCodeUrl] = useState<string>("");
-  const [songs, setSongs] = useState<ISong[]>([]);
 
   useEffect(() => {
     setIsLoading(true);
     getRoomAndSongs(id ?? "")
       .then((data) => {
-        setRoom(data.room)
-        setSongs(data.songs)
+        setRoom(data)
       })
       .catch((error) => {
         setError(error); 
@@ -43,7 +40,7 @@ export function useHostRoom() {
 
   const handleEdit = (newData: ICreateRoomParams) => {
     setIsLoading(true);
-    editRoom(id ?? "", createRoomMap(newData))
+    editRoom(id ?? "", newData)
       .then((data) => {
         setRoom(data)
       })
@@ -62,7 +59,6 @@ export function useHostRoom() {
     setActiveButton,
     handleEdit,
     qrCodeUrl,
-    songs,
     isLoading,
   }
 }

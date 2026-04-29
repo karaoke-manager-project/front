@@ -4,10 +4,18 @@ import { language } from "../../../../utils/settings";
 import { useUserRoom } from "../../../../hooks/useUserRoom";
 import { SongQueue } from "../../../../components/SongQueue/index";
 import { Loading } from "../../../../components/Loading/index";
+import { AddRoomModal } from "./AddRoomModal";
 
 export function UserRoomPage() { 
 
-  const { room, songs, goToProfilePage, isLoading } = useUserRoom();
+  const { 
+    room, 
+    goToProfilePage,
+    isLoading,
+    open,
+    openModal,
+    onClose,
+  } = useUserRoom();
 
   if(isLoading) return <Loading/>
 
@@ -31,12 +39,13 @@ export function UserRoomPage() {
         </div>
       </div> 
       <div className="bg-gray-50 shadow-md mb-5 overflow-y-auto flex-1 mx-4">
-        <SongQueue songs={songs}/>
+        <SongQueue songs={room.songs}/>
       </div>
       <div className="flex justify-center pb-15 shrink-0">
-        <button className="bg-gray-200 p-4 rounded-md shadow-md">
+        <button className="bg-gray-200 p-4 rounded-md shadow-md" onClick={openModal}>
           {strings[language][addSongString]}
         </button>
+        <AddRoomModal open={open} onClose={onClose}/>
       </div>
     </div>
   );
