@@ -7,6 +7,7 @@ export function useUserRoom() {
   const { id } = useParams();
 
   const [room, setRoom] = useState<IRoom>();
+  const [open, setOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState(null);
   const navigator = useNavigate();
@@ -29,10 +30,19 @@ export function useUserRoom() {
     navigator("/user")
   }
 
+  const openModal = () => setOpen(true);
+
+  const onClose = () => {
+    setOpen(false);
+  }
+
   return {
     room,
     navigator,
     goToProfilePage,
     isLoading,
+    open,
+    openModal,
+    onClose,
   }
 }

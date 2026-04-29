@@ -1,11 +1,11 @@
 import { ApiRoomInfo } from "../interfaces/room";
 import { IUser } from "../interfaces/user";
 import api from "../utils/api";
-import { joinRoomEndpoint, roomInfo } from "../utils/endpoints";
+import { joinRoomEndpoint, roomInfoEndpoint } from "../utils/endpoints";
 import Cookies from "js-cookie";
 
 export async function getRoomInfo(code: string): Promise<ApiRoomInfo> {
-  const res = await api.get(roomInfo(code));
+  const res = await api.get(roomInfoEndpoint(code));
   return res.data;
 }
 
