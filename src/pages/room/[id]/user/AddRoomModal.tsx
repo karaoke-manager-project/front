@@ -5,6 +5,8 @@ import { useState } from "react";
 import { youtubeLinkRegex } from "../../../../utils/regex";
 import { useParams } from 'react-router-dom';
 import { addSong } from '../../../../services/song';
+import { strings, requiredFieldString, addString, youtubeUrlRequired, songNameString, urlString, cancelString, addSongString } from '../../../../utils/strings';
+import { language } from '../../../../utils/settings';
 
 type Props = {
   open: boolean;
@@ -26,11 +28,11 @@ export function AddRoomModal({
   const validations = [
     {
       condition: () => name === "",
-      error: () => setNameError("Nome não pode ser vazio"),
+      error: () => setNameError(strings[language][requiredFieldString]),
     },
     {
       condition: () => url && !(youtubeLinkRegex.test(url)),
-      error: () => setUrlError("O link deve ser um link válido do youtube"),
+      error: () => setUrlError(strings[language][youtubeUrlRequired]),
     }
   ]
 
@@ -52,7 +54,7 @@ export function AddRoomModal({
     const hasError = validate();
     if(!hasError) {
       addSong(id ?? "", name, url)
-      .then((data) => {
+      .then(() => {
         handleClose();
       })
       .catch((err) => {
@@ -74,11 +76,11 @@ export function AddRoomModal({
     <Modal open={open} onClose={onClose}>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] bg-white border-2 border-gray-100 p-2 max-h-[90vh] overflow-y-auto">
         <div className="flex flex-col justify-center items-center w-full">
-          <div className="p-2 text-xl">{"Adicionar Música"}</div>
+          <div className="p-2 text-xl">{strings[language][addSongString]}</div>
           <div className="bg-gray-400 w-full h-[2px]"></div>
           <div className="p-2">
             <Input
-              label={"Nome da música"}
+              label={strings[language][songNameString]}
               value={name}
               onChange={setName}
               required={true}
@@ -86,7 +88,7 @@ export function AddRoomModal({
               error={nameError}
             />
             <Input
-              label={"Link do youtube"} 
+              label={strings[language][urlString]} 
               value={url}
               onChange={setUrl}
               maxLength={30}
@@ -96,12 +98,12 @@ export function AddRoomModal({
           <div className="bg-gray-400 w-full h-[2px]"></div>
           <div className="flex justify-between w-full mt-2">
             <Button
-              label={"Cancelar"} 
+              label={strings[language][cancelString]} 
               onClick={handleClose}
               disabled={buttonDisabled}
             />
             <Button 
-              label={"Adicionar"}
+              label={strings[language][addString]}
               onClick={handleAdd}
               disabled={buttonDisabled}
             />

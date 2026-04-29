@@ -3,7 +3,7 @@ import { PasswordInput } from "../../../components/PasswordInput/index";
 import { Input } from "../../../components/Input/index";
 import { Button } from "../../../components/Button/index";
 import { useJoinId } from "../../../hooks/useJoinId";
-import { strings, enterString, roomNotFoundString, writePasswordString, writeNameString } from "../../../utils/strings";
+import { strings, enterString, roomNotFoundString, writePasswordString, writeNameString, backString } from "../../../utils/strings";
 import { language } from "../../../utils/settings";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Tooltip } from "@mui/material";
@@ -60,7 +60,7 @@ export function JoinIdPage() {
         <div className="flex flex-col h-screen">
           <div className="flex justify-start">
             <button onClick={returnPage} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-              <Tooltip title="Voltar">
+              <Tooltip title={strings[language][backString]}>
                 <ArrowBackIcon/>
               </Tooltip>
             </button>
